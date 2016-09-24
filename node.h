@@ -2,8 +2,8 @@
 
 using namespace std;
 
-#ifndef NODE
-#define NODE
+#ifndef NODE_H
+#define NODE_H
 
 class Node
 {
@@ -14,17 +14,5 @@ public:
     int value;
     int height;
 };
-
-Node::Node()
-{
-    Node(0, 0);
-}
-
-Node::Node(int val, int hi)
-{
-    value = val;
-    height = hi;
-    left = right = nullptr;
-}
 
 #endif // NODE

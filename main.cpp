@@ -9,11 +9,13 @@ int main()
 {
     Tree tree;
     srand(time(0));
-    for(int i = 0; i < 500; i++)
+    for(int i = 0; i < 10; i++)
     {
         tree.add(rand());
     }
-    //tree.print();
+    tree.print();
     cout<<"Tree's height : "<<tree.getHeight()<<endl;
+    cout<<"Balancing..."<<endl;
+    tree.balance();
     return 0;
 }
