@@ -17,5 +17,7 @@ int main()
     cout<<"Tree's height : "<<tree.getHeight()<<endl;
     cout<<"Balancing..."<<endl;
     tree.balance();
+    tree.print();
+    cout<<"Tree's height : "<<tree.getHeight()<<endl;
     return 0;
 }

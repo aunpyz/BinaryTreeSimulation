@@ -19,11 +19,12 @@ public:
     };
 
     //balance method
-    void balance();
+    void balance()
+    {
+        balance(root);
+    }
     void addB();
     void rmvB();
-    void singleRotation();
-    void doubleRotation();
 
 private:
     Node *root;
@@ -31,6 +32,13 @@ private:
     int height(Node *tmp);
     int max(int left, int right);
     void add(int val, Node *tmp, Node *prev);
+    void balance(Node* tmp);
+    void Lbalance(Node* tmp);
+    void Rbalance(Node* tmp);
+    void singleRotateL(Node *tmp);
+    void singleRotateR(Node *tmp);
+    void doubleRotateL(Node *tmp);
+    void doubleRotateR(Node *tmp);
 };
 
 #endif // TREE
