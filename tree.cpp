@@ -75,38 +75,80 @@ int Tree::max(int left, int right)
     return (left >= right)?left:right;
 }
 
-void Tree::balance(Node *tmp)
+void Tree::balance(Node *&tmp)
 {
-    cout<<tmp->left->height<<"\t"<<tmp->right->height<<endl;
-    if(height(tmp->left) != -1)
+    if(height(tmp->left) != -1)//balancing left subtree if exists
+    {
         Lbalance(tmp->left);
-    if(height(tmp->right) != -1)
+    }
+    if(height(tmp->right) != -1)//balancing right subtree if exists
+    {
         Rbalance(tmp->right);
-    cout<<tmp->left->height<<"\t"<<tmp->right->height<<endl;
+    }
+    while(height(tmp->left)-height(tmp->right)>1 || height(tmp->right)-height(tmp->left)>1)//continue to balance if the tree still unbalance
+    {
+        if(height(tmp->left)-height(tmp->right)>1)//left-subtree is higher
+        {
+            if(height(tmp->left->right) != -1)//do double rotation
+            {
+                doubleRotateL(tmp);
+            }
+            else
+                singleRotateL(tmp);
+        }
+        if(height(tmp->right)-height(tmp->left)>1)//right-subtree is higher
+        {
+            if(height(tmp->right->left) != -1)//do double rotation
+            {
+                doubleRotateR(tmp);
+            }
+            else
+                singleRotateR(tmp);
+        }
+    }
+    //update tree's height
+    tmp->height = 1 + max(height(tmp->left), height(tmp->right));
 }
 
-void Tree::Lbalance(Node *tmp)
+//Lbalance and Rbalance are symmetrical methods
+
+void Tree::Lbalance(Node* tmp)
 {
     if(height(tmp) != 0)
     {
+        //go to the child where height < its parent = 1
         if(height(tmp)-height(tmp->left) == 1)
-            Lbalance(tmp->left);
-        else
-            Lbalance(tmp->right);
-
-        if(height(tmp->left) - height(tmp->right) > 1)
         {
-            if(height(tmp->left->left) != -1 && height(tmp->left->right) == -1)
-                singleRotateL(tmp);
-            else
-                doubleRotateL(tmp);
+            Lbalance(tmp->left);
         }
-        else if(height(tmp->right) - height(tmp->left) > 1)
+        else
+        {
+            Rbalance(tmp->right);
+        }
+
+        if(height(tmp->left)-height(tmp->right) > 1)//left-subtree higher than right-subtree, cause unbalanced tree
+        {
+            if(height(tmp->left->left) != -1 && height(tmp->left->right) == -1)//do single rotation
+            {
+                singleRotateL(tmp);
+            }
+            else
+            {
+                doubleRotateL(tmp);
+            }
+            //
+            print(tmp);
+        }
+        else if(height(tmp->right)-height(tmp->left) > 1)
         {
             if(height(tmp->right->right) != -1 && height(tmp->right->left) == -1)
+            {
                 singleRotateR(tmp);
+            }
             else
+            {
                 doubleRotateR(tmp);
+            }
         }
     }
 }
@@ -116,57 +158,75 @@ void Tree::Rbalance(Node *tmp)
     if(height(tmp) != 0)
     {
         if(height(tmp)-height(tmp->right) == 1)
+        {
             Rbalance(tmp->right);
+        }
         else
-            Rbalance(tmp->left);
+        {
+            Lbalance(tmp->left);
+        }
 
-        if(height(tmp->right) - height(tmp->left) > 1)
+        if(height(tmp->left)-height(tmp->right) > 1)//left-subtree higher than right-subtree, cause unbalanced tree
+        {
+            if(height(tmp->left->left) != -1 && height(tmp->left->right) == -1)//do single rotation
+            {
+                singleRotateL(tmp);
+            }
+            else
+            {
+                doubleRotateL(tmp);
+            }
+        }
+        else if(height(tmp->right)-height(tmp->left) > 1)
         {
             if(height(tmp->right->right) != -1 && height(tmp->right->left) == -1)
+            {
                 singleRotateR(tmp);
+            }
             else
+            {
                 doubleRotateR(tmp);
-        }
-        else if(height(tmp->left) - height(tmp->right) > 1)
-        {
-            if(height(tmp->left->left) != -1 && height(tmp->left->right) == -1)
-                singleRotateL(tmp);
-            else
-                doubleRotateL(tmp);
+            }
         }
     }
 }
-//errors downward
-void Tree::singleRotateL(Node *tmp)
-{
-    Node *tmp2 = tmp->left;
-    tmp->left = tmp2->right;
-    tmp2->right = tmp;
-    tmp = tmp2;
 
-    tmp->height = 1+max(height(tmp->left), height(tmp->right));
-    tmp2->height = 1+max(height(tmp2->left), height(tmp2->right));
+void Tree::singleRotateL(Node *&k2)
+{
+    Node *k1=k2->left;
+
+    k2->left = k1->right;
+    k1->right = k2;
+
+    //update height
+    k2->height = 1 + max(height(k2->left), height(k2->right));
+    k1->height = 1 + max(height(k1->left), height(k1->right));
+
+    //place k2 at k1's address
+    k2 = k1;
 }
 
-void Tree::singleRotateR(Node *tmp)
+void Tree::singleRotateR(Node *&k2)
 {
-    Node *tmp2 = tmp->right;
-    tmp->right = tmp2->left;
-    tmp2->left = tmp;
-    tmp = tmp2;
+    Node *k1=k2->right;
 
-    tmp->height = 1+max(height(tmp->left), height(tmp->right));
-    tmp2->height = 1+max(height(tmp2->left), height(tmp2->right));
+    k2->right = k1->left;
+    k1->left = k2;
+
+    k2->height = 1 + max(height(k2->left), height(k2->right));
+    k1->height = 1 + max(height(k1->left), height(k1->right));
+
+    k2 = k1;
 }
 
-void Tree::doubleRotateL(Node *tmp)
+void Tree::doubleRotateL(Node *&k3)
 {
-    /*singleRotateR(tmp);
-    singleRotateL(tmp);*/
+    singleRotateR(k3->left);
+    singleRotateL(k3);
 }
 
-void Tree::doubleRotateR(Node *tmp)
+void Tree::doubleRotateR(Node *&k3)
 {
-    /*singleRotateL(tmp);
-    singleRotateR(tmp);*/
+    singleRotateL(k3->right);
+    singleRotateR(k3);
 }
