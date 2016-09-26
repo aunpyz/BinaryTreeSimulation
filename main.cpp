@@ -36,16 +36,27 @@ int main()
     for(int i = 0; i < 20; i++)
     {
         tree.insert(i+1);
-        tree.print();
-        cout<<endl;
+        //tree.print();
+        //cout<<endl;
     }
     cout<<"Tree's height : "<<tree.getHeight()<<endl;
 
     int testlist[] = {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31};
     for(int i = 0; i < sizeof(testlist)/sizeof(int); i++)
     {
-        cout<<testlist[i]<<" was"<<(tree.search(testlist[i])?" ":" not ")<<"found"<<endl;
+        //cout<<testlist[i]<<" was"<<(tree.search(testlist[i])?" ":" not ")<<"found"<<endl;
+        tree.remove(testlist[i]);
+        tree.print();
+        cout<<endl;
     }
+
+    /*tree.remove(19);
+    tree.remove(3);
+    tree.remove(5);
+    tree.remove(6);
+    tree.remove(11);
+    tree.remove(8);*/
+    //tree.print();
 
     return 0;
 }

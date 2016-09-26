@@ -30,7 +30,7 @@ public:
     }
     void remove(int val)
     {
-        remove(val, root);
+        remove(val, root, root);
     }
 
 private:
@@ -48,7 +48,8 @@ private:
     void doubleRotateL(Node *&tmp);
     void doubleRotateR(Node *&tmp);
     void insert(int val, Node *&tmp);
-    void remove(int val, Node *&tmp);
+    void remove(int val, Node *&tmp, Node *&prev);
+    void findmin(Node *&toDel, Node *&tmp, Node *&prev);
 };
 
 #endif // TREE
