@@ -23,8 +23,8 @@ public:
     {
         balance(root);
     }
-    void addB();
-    void rmvB();
+    void insert();
+    void remove();
 
 private:
     Node *root;
@@ -33,8 +33,9 @@ private:
     int max(int left, int right);
     void add(int val, Node *tmp, Node *prev);
     void balance(Node *&tmp);
-    void Lbalance(Node* tmp);
-    void Rbalance(Node* tmp);
+    /*void Lbalance(Node *&tmp);
+    void Rbalance(Node *&tmp);*/
+    void rotate(Node *&tmp);
     void singleRotateL(Node *&tmp);
     void singleRotateR(Node *&tmp);
     void doubleRotateL(Node *&tmp);
