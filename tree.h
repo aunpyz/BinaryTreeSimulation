@@ -13,6 +13,7 @@ public:
     void add(int val);
     void print();
     bool isEmpty();
+    bool search(int val);
     int getHeight()
     {
         return root->height;
@@ -23,8 +24,14 @@ public:
     {
         balance(root);
     }
-    void insert();
-    void remove();
+    void insert(int val)
+    {
+        insert(val, root);
+    }
+    void remove(int val)
+    {
+        remove(val, root);
+    }
 
 private:
     Node *root;
@@ -40,6 +47,8 @@ private:
     void singleRotateR(Node *&tmp);
     void doubleRotateL(Node *&tmp);
     void doubleRotateR(Node *&tmp);
+    void insert(int val, Node *&tmp);
+    void remove(int val, Node *&tmp);
 };
 
 #endif // TREE

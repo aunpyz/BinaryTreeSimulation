@@ -25,11 +25,11 @@ void Tree::add(int val, Node *tmp, Node *prev)
     if(tmp == nullptr)
     {
         if(isEmpty())
-            root = new Node(val, 0);
+            root = new Node(val);
         else if (prev->value > val)
-            prev->left = new Node(val, 0);
+            prev->left = new Node(val);
         else if (prev->value < val)
-            prev->right = new Node(val, 0);
+            prev->right = new Node(val);
     }
     //at other than leaf
     else
@@ -274,4 +274,19 @@ void Tree::rotate(Node *&tmp)
         }
     }
     //print(tmp);
+}
+
+bool Tree::search(int val)
+{
+    Node *tmp = root;
+    while(tmp != nullptr)
+    {
+        if(val > tmp->value)
+            tmp = tmp->right;
+        else if(val < tmp->value)
+            tmp = tmp->left;
+        else
+            return true;
+    }
+    return false;
 }

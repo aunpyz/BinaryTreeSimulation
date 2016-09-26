@@ -9,7 +9,7 @@ class Node
 {
 public:
     Node();
-    Node(int val, int height);
+    Node(int val);
     Node *left, *right;
     int value;
     int height;

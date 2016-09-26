@@ -2,12 +2,12 @@
 
 Node::Node()
 {
-    Node(0, 0);
+    Node(0);
 }
 
-Node::Node(int val, int hi)
+Node::Node(int val)
 {
     value = val;
-    height = hi;
+    height = 0;
     left = right = nullptr;
 }
