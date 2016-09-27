@@ -60,7 +60,7 @@ void Tree::print(Node *start)
         print(tmp->left);
         cout<<tmp->value<<"\tat height of\t"<<tmp->height<<"\t";
         int diff = height(tmp->left)-height(tmp->right);
-        cout<<(diff<0?diff*-1:diff)<<endl;
+        cout<<(diff<0?diff*-1:diff)<<((diff<0?diff*-1:diff)<=1?"":" false")<<endl;
         print(tmp->right);
     }
 }
@@ -98,7 +98,7 @@ void Tree::balance(Node *&tmp)
     }
 
     //right-handed traversal
-    if(height(tmp->right) > -1)
+    if(height(tmp->right) >-1)
     {
         if(height(tmp->right)>-1)
             balance(tmp->right);
@@ -253,7 +253,11 @@ void Tree::rotate(Node *&tmp)
                     singleRotateL(tmp);
                 }
                 else//height(tmp->left->right) >= height(tmp->left->left)
+                {
                     doubleRotateL(tmp);
+                }
+                balance(tmp->left);
+                balance(tmp->right);
             }
             else
                 singleRotateL(tmp);
@@ -267,11 +271,18 @@ void Tree::rotate(Node *&tmp)
                     singleRotateR(tmp);
                 }
                 else
+                {
                     doubleRotateR(tmp);
+                }
+                balance(tmp->left);
+                balance(tmp->right);
             }
             else
                 singleRotateR(tmp);
         }
+
+        //update new height?
+        //tmp->height = 1 + max(height(tmp->left), height(tmp->right));
     }
     //print(tmp);
 }
@@ -286,7 +297,10 @@ bool Tree::search(int val)
         else if(val < tmp->value)
             tmp = tmp->left;
         else
+        {
+            //print(tmp);
             return true;
+        }
     }
     return false;
 }

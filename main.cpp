@@ -9,46 +9,48 @@ int main()
 {
     Tree tree;
     srand(time(0));
-    /*for(int i = 0; i < 500; i++)
+    for(int i = 0; i < 1000; i++)
     {
-        int randnum = rand();
+        //int randnum = rand();
         //cout<<randnum<<",";
-        tree.add(randnum);
+        //tree.add(randnum);
+        tree.add(i+1);
     }
     //tree.print();
     cout<<"Tree's height : "<<tree.getHeight()<<endl;
     cout<<"Balancing..."<<endl;
     tree.balance();
+    //tree.balance();
     cout<<"after balancing"<<endl;
-    //tree.print();
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;*/
+    tree.print();
+    cout<<"Tree's height : "<<tree.getHeight()<<endl;
 
-    /*
     cout<<"Insertion(balance-ly)\n";
-    for(int i = 0; i < 50; i++)
+    for(int i = 0; i < 1000; i++)
     {
-        tree.insert(rand());
+        tree.insert(i+1001);
         //tree.print();
-        cout<<endl;
+        //cout<<endl;
     }
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;*/
+    tree.print();
+    cout<<"Tree's height : "<<tree.getHeight()<<endl;
 
-    for(int i = 0; i < 20; i++)
+    /*for(int i = 0; i < 20; i++)
     {
         tree.insert(i+1);
         //tree.print();
         //cout<<endl;
     }
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;
+    cout<<"Tree's height : "<<tree.getHeight()<<endl;*/
 
-    int testlist[] = {1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31};
-    for(int i = 0; i < sizeof(testlist)/sizeof(int); i++)
+    cout<<"Deletion(balance-ly)\n";
+    for(int i = 0; i < 1000; i++)
     {
-        //cout<<testlist[i]<<" was"<<(tree.search(testlist[i])?" ":" not ")<<"found"<<endl;
-        tree.remove(testlist[i]);
-        tree.print();
-        cout<<endl;
+        int randnum = rand()%5000+1;
+        cout<<randnum<<" was"<<(tree.search(randnum)?" ":" not ")<<"found"<<endl;
+        tree.remove(randnum);
     }
+    tree.print();
 
     /*tree.remove(19);
     tree.remove(3);
