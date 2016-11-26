@@ -1,3 +1,0 @@
-*
-!*.cpp
-#ignoring all files except cpp files
