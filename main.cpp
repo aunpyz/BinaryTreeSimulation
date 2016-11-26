@@ -2,63 +2,36 @@
 #include <cstdlib>
 #include <ctime>
 #include "tree.h"
+/*
+    * Insert 500 Random numbers into a binary tree – output the height of the tree.
+    * Balance the tree – output the new height of the tree.
 
+    * Add an interface which allows the user to decide how many ‘insertion’ operations should be done.
+
+    * Allow the user to search to find out if a particular node is in the tree.
+    * Allow the user to decide how many deletion operations should be performed
+    (i.e. generate a random number, and if that number is in the tree, delete it).
+*/
 using namespace std;
 
-int main()
+int main ()
 {
-    Tree tree;
+    Tree<int> mytree;
+
     srand(time(0));
-    for(int i = 0; i < 1000; i++)
+    int randomNum;
+    for(int i=0; i<500; i++)
     {
-        //int randnum = rand();
-        //cout<<randnum<<",";
-        //tree.add(randnum);
-        tree.add(i+1);
+        randomNum = rand();
+        //mytree.insert(randomNum);
+        mytree.insert(i+1);
     }
-    //tree.print();
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;
-    cout<<"Balancing..."<<endl;
-    tree.balance();
-    //tree.balance();
-    cout<<"after balancing"<<endl;
-    tree.print();
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;
 
-    cout<<"Insertion(balance-ly)\n";
-    for(int i = 0; i < 1000; i++)
-    {
-        tree.insert(i+1001);
-        //tree.print();
-        //cout<<endl;
-    }
-    tree.print();
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;
-
-    /*for(int i = 0; i < 20; i++)
-    {
-        tree.insert(i+1);
-        //tree.print();
-        //cout<<endl;
-    }
-    cout<<"Tree's height : "<<tree.getHeight()<<endl;*/
-
-    cout<<"Deletion(balance-ly)\n";
-    for(int i = 0; i < 1000; i++)
-    {
-        int randnum = rand()%5000+1;
-        cout<<randnum<<" was"<<(tree.search(randnum)?" ":" not ")<<"found"<<endl;
-        tree.remove(randnum);
-    }
-    tree.print();
-
-    /*tree.remove(19);
-    tree.remove(3);
-    tree.remove(5);
-    tree.remove(6);
-    tree.remove(11);
-    tree.remove(8);*/
-    //tree.print();
-
+    //mytree.inorder();
+    cout<<"Height: "<<mytree.getHeight()<<endl;
+    cout<<"\nBalance"<<endl;
+    mytree.balance();
+    mytree.inorder();
+    cout<<"Height: "<<mytree.getHeight()<<endl;
     return 0;
 }
